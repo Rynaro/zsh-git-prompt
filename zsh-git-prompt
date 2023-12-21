@@ -62,16 +62,16 @@ appendToStatus() {
 git_super_status() {
     updateGitVarsBeforePromptDisplay
     if git rev-parse --git-dir > /dev/null 2>&1; then
-        if [ -n "$__CURRENT_GIT_STATUS" ]; then
-            STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH "
-            [ "$GIT_BEHIND" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_BEHIND" " $GIT_BEHIND"
-            [ "$GIT_AHEAD" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_AHEAD" " $GIT_AHEAD"
+        if [ -n "$currentGitStatusArray" ]; then
+            STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$gitBranch "
+            [ "$gitBehind" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_BEHIND" " $gitBehind"
+            [ "$gitAhead" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_AHEAD" " $gitAhead"
             STATUS="${STATUS}$ZSH_THEME_GIT_PROMPT_SEPARATOR"
-            [ "$GIT_STAGED" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_STAGED" "$GIT_STAGED"
-            [ "$GIT_CONFLICTS" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CONFLICTS" "$GIT_CONFLICTS"
-            [ "$GIT_CHANGED" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CHANGED" "$GIT_CHANGED"
-            [ "$GIT_UNTRACKED" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_UNTRACKED" "$GIT_UNTRACKED"
-            [ "$GIT_CHANGED" -eq "0" ] && [ "$GIT_CONFLICTS" -eq "0" ] && [ "$GIT_STAGED" -eq "0" ] && [ "$GIT_UNTRACKED" -eq "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CLEAN" ""
+            [ "$gitStaged" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_STAGED" "$gitStaged"
+            [ "$gitConflicts" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CONFLICTS" "$gitConflicts"
+            [ "$gitChanged" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CHANGED" "$gitChanged"
+            [ "$gitUntracked" -ne "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_UNTRACKED" "$gitUntracked"
+            [ "$gitChanged" -eq "0" ] && [ "$gitConflicts" -eq "0" ] && [ "$gitStaged" -eq "0" ] && [ "$gitUntracked" -eq "0" ] && appendToStatus "$ZSH_THEME_GIT_PROMPT_CLEAN" ""
             STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
             echo "$STATUS"
         fi
@@ -93,7 +93,7 @@ if [ -n "$USE_TRADITIONAL_GIT_PROMPT_THEME" ]; then
 else
 		ZSH_THEME_GIT_PROMPT_PREFIX="("
 		ZSH_THEME_GIT_PROMPT_SUFFIX=")"
-		ZSH_THEME_GIT_PROMPT_SEPARATOR=" | "
+		ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
 		ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}🌿 "
 		ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}📦"
 		ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}⚔️"
