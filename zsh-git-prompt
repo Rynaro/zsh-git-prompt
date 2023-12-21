@@ -60,7 +60,7 @@ appendToStatus() {
 }
 
 git_super_status() {
-    precmd_update_git_vars
+    updateGitVarsBeforePromptDisplay
     if git rev-parse --git-dir > /dev/null 2>&1; then
         if [ -n "$__CURRENT_GIT_STATUS" ]; then
             STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH "
